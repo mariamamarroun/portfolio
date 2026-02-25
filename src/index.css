@@ -1,0 +1,149 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 348 73% 6%;
+    --foreground: 0 0% 95%;
+
+    --card: 348 50% 10%;
+    --card-foreground: 0 0% 95%;
+
+    --popover: 348 50% 10%;
+    --popover-foreground: 0 0% 95%;
+
+    --primary: 347 77% 50%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 348 68% 17%;
+    --secondary-foreground: 0 0% 95%;
+
+    --muted: 348 40% 14%;
+    --muted-foreground: 348 15% 55%;
+
+    --accent: 347 77% 50%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 348 30% 18%;
+    --input: 348 30% 18%;
+    --ring: 347 77% 50%;
+
+    --radius: 1rem;
+
+    --bordeaux: 348 68% 17%;
+    --wine-dark: 348 71% 14%;
+    --burgundy: 348 71% 22%;
+    --wine-black: 348 73% 6%;
+    --ruby: 347 77% 50%;
+    --ruby-glow: 347 77% 50%;
+
+    --sidebar-background: 348 73% 6%;
+    --sidebar-foreground: 0 0% 95%;
+    --sidebar-primary: 347 77% 50%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 348 68% 17%;
+    --sidebar-accent-foreground: 0 0% 95%;
+    --sidebar-border: 348 30% 18%;
+    --sidebar-ring: 347 77% 50%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    font-family: 'Inter', sans-serif;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Playfair Display', serif;
+  }
+}
+
+@layer components {
+  .glass-card {
+    @apply bg-card/40 backdrop-blur-xl border border-border/50 rounded-2xl;
+    box-shadow: 0 8px 32px rgba(74, 14, 26, 0.15);
+  }
+
+  .glass-card-hover {
+    @apply glass-card transition-all duration-300;
+  }
+
+  .glass-card-hover:hover {
+    @apply border-primary/40;
+    box-shadow: 0 12px 40px rgba(225, 29, 72, 0.15), 0 0 20px rgba(225, 29, 72, 0.08);
+    transform: translateY(-4px);
+  }
+
+  .ruby-glow {
+    box-shadow: 0 0 20px rgba(225, 29, 72, 0.2), 0 0 40px rgba(225, 29, 72, 0.1);
+  }
+
+  .ruby-glow-sm {
+    box-shadow: 0 0 10px rgba(225, 29, 72, 0.15);
+  }
+
+  .gradient-bordeaux {
+    background: linear-gradient(135deg, hsl(348 68% 17%), hsl(348 71% 22%), hsl(347 77% 50% / 0.6));
+  }
+
+  .gradient-text {
+    @apply bg-clip-text text-transparent;
+    background-image: linear-gradient(135deg, hsl(0 0% 100%), hsl(347 77% 70%));
+  }
+
+  .timeline-line {
+    background: linear-gradient(180deg, hsl(347 77% 50%), hsl(348 68% 17%));
+  }
+
+  .section-padding {
+    @apply py-24 px-6 md:px-12 lg:px-20;
+  }
+
+  .animate-gradient {
+    background-size: 200% 200%;
+    animation: gradientShift 8s ease infinite;
+  }
+
+  @keyframes gradientShift {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+  }
+
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
+  }
+
+  @keyframes typing {
+    from { width: 0; }
+    to { width: 100%; }
+  }
+
+  @keyframes blink {
+    0%, 50% { border-color: hsl(347 77% 50%); }
+    51%, 100% { border-color: transparent; }
+  }
+
+  .typing-effect {
+    overflow: hidden;
+    white-space: nowrap;
+    border-right: 2px solid hsl(347 77% 50%);
+    animation: typing 3s steps(30) 1s forwards, blink 0.8s step-end infinite;
+    width: 0;
+  }
+}
