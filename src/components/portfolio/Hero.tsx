@@ -80,7 +80,7 @@ const Hero = () => {
             {t("hero.cta.contact")}
           </button>
           <a
-            href={lang === "fr" ? "/cv/cv-fr.pdf" : "/cv/cv-en.pdf"}
+            href="/cv/my-cv.pdf"
             download
             className="px-8 py-3.5 rounded-2xl border border-primary/30 text-foreground font-medium text-sm tracking-wide hover:bg-primary/10 transition-all duration-300 flex items-center gap-2 hover:scale-105"
           >

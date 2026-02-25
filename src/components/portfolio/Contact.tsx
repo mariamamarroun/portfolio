@@ -2,16 +2,9 @@ import { motion, useInView } from "framer-motion";
 import { useRef, useState } from "react";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { Github, Linkedin, Mail } from "lucide-react";
-import emailjs from "@emailjs/browser";
 
-// Initialize EmailJS with your public key
-// Get your public key from https://dashboard.emailjs.com/
-const EMAILJS_PUBLIC_KEY = "8WMt2lx7RKdueN8hkP2LN"; // Replace with your actual public key
-const EMAILJS_SERVICE_ID = "service_pb15ntw"; // Replace with your EmailJS service ID
-const EMAILJS_TEMPLATE_ID = "template_9assdsp"; // Replace with your EmailJS template ID
+const FORMSPREE_ENDPOINT = "https://formspree.io/f/mnjblgdp"; // Replace with your Formspree form ID
 const RECIPIENT_EMAIL = "mariammarroun23@gmail.com";
-
-emailjs.init(EMAILJS_PUBLIC_KEY);
 
 const Contact = () => {
   const { t } = useLanguage();
@@ -32,28 +25,33 @@ const Contact = () => {
       const name = formData.get("name") as string;
       const email = formData.get("email") as string;
       const message = formData.get("message") as string;
+      const subject = "Portfolio Contact Form";
 
-      // Send email using EmailJS
-      await emailjs.send(
-        EMAILJS_SERVICE_ID,
-        EMAILJS_TEMPLATE_ID,
-        {
-          to_email: RECIPIENT_EMAIL,
-          from_name: name,
-          user_email: email,
-          user_message: message,
-          title: "Portfolio Contact Form" // <-- match the template variable
+      // Send form data to Formspree
+      const formEndpoint = FORMSPREE_ENDPOINT;
+      // Append Formspree subject field
+      formData.append('_subject', subject);
+
+      const response = await fetch(formEndpoint, {
+        method: 'POST',
+        body: formData,
+        headers: {
+          Accept: 'application/json',
         },
-        EMAILJS_PUBLIC_KEY
-      );
-      setSent(true);
-      formRef.current.reset();
-      setTimeout(() => setSent(false), 3000);
+      });
+
+      if (response.ok) {
+        setSent(true);
+        formRef.current.reset();
+        setTimeout(() => setSent(false), 3000);
+      } else {
+        const errorData = await response.json().catch(() => null);
+        throw new Error((errorData && (errorData.error || errorData.message)) || 'Failed to send message');
+      }
     } catch (error: any) {
       console.error("Failed to send email:", error);
-      console.error("Error status:", error.status);
-      console.error("Error text:", error.text);
-      alert(`Failed to send message: ${error.status || "Unknown error"}. Please check your template setup.`);
+      console.error("Error detail:", error.message || error);
+      alert(`Failed to send message: ${error.message || "Unknown error"}.`);
     } finally {
       setLoading(false);
     }
