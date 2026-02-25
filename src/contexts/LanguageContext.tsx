@@ -19,7 +19,7 @@ const translations: Record<Lang, Record<string, string>> = {
     "nav.experience": "Expérience",
     "nav.contact": "Contact",
     // Hero
-    "hero.role": "Développeuse Full Stack",
+    "hero.role": "Développeuse python",
     "hero.tagline": "Je conçois des applications modernes, scalables et performantes.",
     "hero.cta.contact": "Me contacter",
     "hero.cta.cv": "Télécharger CV",
